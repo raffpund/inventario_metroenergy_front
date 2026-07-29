@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/notyf/3.10.0/notyf.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/notyf/3.10.0/notyf.min.js"></script>
+    <title>INVENTARIO METROENERGY</title>
+    <style>
+
+        body{
+        background:#f5f7fb;
+        }
+
+        .card{
+            border-radius:18px;
+        }
+
+        .form-control,
+        .form-select{
+            border-radius:10px;
+        }
+
+        .form-control:focus,
+        .form-select:focus{
+            box-shadow:0 0 0 .2rem rgba(13,110,253,.15);
+        }
+
+        .card-header{
+            padding:1.5rem;
+        }
+
+        textarea{
+            resize:none;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container py-5">
+
+    <div class="card shadow-lg border-0 rounded-4">
+
+        <!-- HEADER -->
+
+        <div class="card-header bg-primary text-white rounded-top-4">
+
+            <div class="d-flex justify-content-between align-items-center">
+
+                <div>
+                    <h2 class="mb-0">
+                        <i class="bi bi-pc-display-horizontal"></i>
+                        Inventario de Activos Tecnológicos
+                    </h2>
+
+                    <small>Registro y administración de equipos</small>
+
+                </div>
+
+                <a href="#" class="btn btn-light">
+                    <i class="bi bi-search"></i>
+                    Consultar Activos
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- BODY -->
+
+        <div class="card-body p-4">
+
+            <form id="formActivos">
+
+                <!-- RESPONSABLE -->
+
+                <h5 class="text-primary mb-3">
+                    <i class="bi bi-person-fill"></i>
+                    Responsable
+                </h5>
+
+                <div class="row g-3">
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">Nombre Completo</label>
+
+                        <input
+                            id="idNombreResponsable"
+                            name="nombre_responsable"
+                            type="text"
+                            class="form-control"
+                            required>
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">Departamento</label>
+
+                        <select
+                            id="idDepartamento"
+                            name="departamento"
+                            class="form-select"
+                            required>
+
+                            <option value="">Seleccione...</option>
+                            <option>GHL (Mantenimiento)</option>
+                            <option>RRHH</option>
+                            <option>Contabilidad</option>
+                            <option>Normativa</option>
+                            <option>Unidad de Inspección</option>
+                            <option>Comercial</option>
+                            <option>Medición y Control</option>
+                            <option>Marketing</option>
+                            <option>Desarrollo</option>
+                            <option>Procesos</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <hr class="my-4">
+
+                <!-- EQUIPO -->
+
+                <h5 class="text-primary mb-3">
+                    <i class="bi bi-laptop"></i>
+                    Información del Equipo
+                </h5>
+
+                <div class="row g-3">
+                    <div id="equiposContainer"></div>
+
+                    <button
+                        type="button"
+                        id="btnAgregar"
+                        class="btn btn-success w-100">
+                        +
+                    </button>
+                </div>
+
+                <hr class="my-4">
+                
+                <div id="credenciales">
+                <!-- CREDENCIALES -->
+
+                <h5 class="text-primary mb-3">
+                    <i class="bi bi-shield-lock-fill"></i>
+                    Credenciales de Acceso
+                </h5>
+
+                <div class="row g-3">
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Correo Electrónico
+                        </label>
+
+                        <input
+                            id="idCorreo"
+                            name="correo"
+                            type="email"
+                            class="form-control"
+                            placeholder="usuario@empresa.com">
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Contraseña del Correo
+                        </label>
+
+                        <input
+                            id="idPasswordCorreo"
+                            name="password_correo"
+                            type="password"
+                            class="form-control">
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            PIN del Teléfono
+                        </label>
+
+                        <input
+                            id="idPinTelefono"
+                            name="pin_telefono"
+                            type="password"
+                            maxlength="10"
+                            class="form-control">
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            PIN de Windows
+                        </label>
+
+                        <input
+                            id="idPinComputadora"
+                            name="pin_computadora"
+                            type="password"
+                            maxlength="20"
+                            class="form-control">
+
+                    </div>
+
+                </div>
+                </div>
+
+                <hr class="my-4">
+
+                <!-- OBSERVACIONES -->
+
+                <h5 class="text-primary mb-3">
+                    <i class="bi bi-chat-left-text-fill"></i>
+                    Observaciones
+                </h5>
+
+                <textarea
+                    id="idObservacion"
+                    name="observacion"
+                    rows="5"
+                    class="form-control"
+                    placeholder="Escriba alguna observación..."
+                    required></textarea>
+
+                <!-- BOTONES -->
+
+                <div class="mt-4 d-flex justify-content-end gap-2">
+
+
+                    <button
+                        type="submit"
+                        class="btn btn-success">
+
+                        <i class="bi bi-floppy-fill"></i>
+                        Guardar Activo
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+    
+</body>
+
+
+
+
+
+
+<script>
+    
+    const container = document.getElementById("equiposContainer");
+    const btnAgregar = document.getElementById("btnAgregar");
+
+    let contador = 0;
+
+    //ejecutar un evento que cuando de click al boton ejecute la función agregarEquipo 
+    btnAgregar.addEventListener("click", agregarEquipo);
+
+    // Agrega el primero al cargar
+    agregarEquipo();
+
+    function agregarEquipo() {
+        //funcion para obtener la fecha del dia de hoy
+        const fecha = new Date().toLocaleDateString('es-MX');
+
+        const html = `
+        <div class="border rounded p-3 mb-4 position-relative">
+
+            <button
+                type="button"
+                class="btn btn-danger btn-sm position-absolute top-0 end-0 m-2 eliminar">
+                <i class="bi bi-x-lg"></i>
+            </button>
+
+            <h5 class="text-primary mb-3">
+                Equipo
+            </h5>
+
+            <div class="row g-3">
+
+                <div class="col-md-4">
+
+                    <label class="form-label">Tipo</label>
+
+                    <select
+                        name="equipos[${contador}][tipo]"
+                        class="form-select"
+                        required>
+                        <option value="">Seleccione...</option>
+                        <option>CPU</option>
+                        <option>LAPTOP</option>
+                        <option>MONITOR</option>
+                        <option>MOUSE</option>
+                        <option>TECLADO</option>
+                        <option>MÓVIL</option>
+                        <option>IMPRESORA</option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <label class="form-label">Marca</label>
+
+                    <input
+                        name="equipos[${contador}][marca]"
+                        class="form-control"
+                        required>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <label class="form-label">Modelo</label>
+
+                    <input
+                        name="equipos[${contador}][modelo]"
+                        class="form-control"
+                        required>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <label class="form-label">Número de Serie</label>
+
+                    <input
+                        name="equipos[${contador}][serie]"
+                        class="form-control"
+                        required>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <label class="form-label">Fecha de Registro</label>
+
+                    <input
+                        value="${fecha}"
+                        name="equipos[${contador}][fecha]"
+                        class="form-control"
+                        readonly>
+
+                </div>
+
+            </div>
+
+        </div>
+        `;
+
+        //funcion para agregar el html al contenedor
+        container.insertAdjacentHTML("beforeend", html);
+
+        contador++;
+    }
+
+
+    container.addEventListener("click", function(e){
+
+        if(e.target.closest(".eliminar")){
+            e.target.closest(".border").remove();
+        }
+
+    });
+
+    ///otra LOGICA
+
+    //FORMULARIO
+    const formularioActivos = document.getElementById("formActivos");
+
+    //escuchar un evento de tipo submit
+    formularioActivos.addEventListener("submit", function(event){
+    //prevenir que se recargue la pagina
+    event.preventDefault();
+
+    // obtener todos los equipos
+    const equipos = [];
+
+        //#equiposContainer es el contenedor 
+        //. border es cada targeta dinamica que se genero 
+        // debemos realizar un forEach para cada elemento del div que tenemos
+        document.querySelectorAll("#equiposContainer .border").forEach(equipo => {
+
+            //agregamos al arreglo equipos con push los datos
+            equipos.push({
+
+                //la estructura es tipoElemento[name*="[valorName]"] se utiliza el operador *= significa "contiene"
+                tipo: equipo.querySelector('select[name*="[tipo]"]').value,
+
+                marca: equipo.querySelector('input[name*="[marca]"]').value,
+
+                modelo: equipo.querySelector('input[name*="[modelo]"]').value,
+
+                serie: equipo.querySelector('input[name*="[serie]"]').value,
+
+                fecha: equipo.querySelector('input[name*="[fecha]"]').value
+
+            });
+
+        });
+
+        // Crear objeto completo
+        const data = {
+
+            nombre_responsable: document.getElementById("idNombreResponsable").value,
+
+            departamento: document.getElementById("idDepartamento").value,
+
+            correo: document.getElementById("idCorreo").value,
+
+            password_correo: document.getElementById("idPasswordCorreo").value,
+
+            pin_telefono: document.getElementById("idPinTelefono").value,
+
+            pin_computadora: document.getElementById("idPinComputadora").value,
+
+            observacion: document.getElementById("idObservacion").value,
+
+            //aqui traemos y almacenamos en equipos el objeto con todos los equipos almacenados
+            equipos: equipos
+
+        };
+
+        console.log(data);
+
+        fetch("http://localhost:8080/api/activos", {
+
+            method: "POST",
+
+            headers: {
+
+                "Content-Type": "application/json"
+
+            },
+
+            body: JSON.stringify(data)
+
+        })
+
+        .then(res => res.json())
+
+        .then(respuesta => {
+
+            console.log(respuesta);
+            const notyf = new Notyf({
+                duration: 4000,
+                position: {
+                    x : 'right',
+                    y : 'top'
+                }
+                
+            });
+            notyf.success("Activo registrado correctamente");
+
+            formularioActivos.reset();
+
+            container.innerHTML = "";
+
+            contador = 0;
+
+            agregarEquipo();
+
+        })
+
+        .catch(error => {
+
+            console.error(error);
+            const notyf = new Notyf();
+            notyf.error("Ocurrió un error");
+
+        });
+
+    });
+
+</script>
+</html>
